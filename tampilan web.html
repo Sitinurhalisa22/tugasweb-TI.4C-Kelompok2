@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIVERSITAS HANDAYANI MAKASSAR</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        let currentImageIndex = 0;
+        const images = [
+            'c:\\MK.HTML\\Tugas web\\1.jpg', 
+            'c:\\MK.HTML\\Tugas web\\3.jpg', 
+            'c:\\MK.HTML\\Tugas web\\4.jpg'
+        ];
+
+        function changeImage(direction) {
+            if (direction === 'next') {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+            } else if (direction === 'prev') {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            }
+            document.getElementById('banner-image').src = images[currentImageIndex];
+        }
+
+        function showContent(contentId) {
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const selectedContent = document.getElementById(contentId);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+            document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('active'));
+            if (contentId === 'programs') {
+                document.querySelector('nav ul li:nth-child(3)').classList.add('active'); 
+            }
+            if (contentId === 'home-page') {
+                document.querySelector('.banner').style.display = 'block';
+            } else {
+                document.querySelector('.banner').style.display = 'none';
+            }
+        }
+
+        function openLightbox(imageSrc) {
+            const lightbox = document.querySelector('.lightbox');
+            const lightboxImage = lightbox.querySelector('img');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.querySelector('.lightbox').classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('home-page').classList.add('active');
+            document.querySelector('.banner').style.display = 'block';
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo Universitas Handayani Makassar">
+                <h1><a href="#" onclick="showContent('home-page')">UNIVERSITAS HANDAYANI MAKASSAR</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a onclick="showContent('home-page')">Home</a></li>
+                    <li><a onclick="showContent('about')">About</a>
+                    <li><a onclick="showContent('programs')">Programs</a></li>
+                    <li><a onclick="showContent('news-events')">News & Events</a></li>
+                    <li><a onclick="showContent('gallery')">Gallery</a></li>
+                    <li><a onclick="showContent('contact')">Contact</a></li>
+                    <li><a onclick="showContent('admission')">Admission</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 UNIVERSITAS HANDAYANI MAKASSAR.</p>
+            <ul class="social-links">
+                <li><a href="https://web.facebook.com/stmikhdy?_rdc=1&_rdr">Facebook</a></li>
+                <li><a href="https://x.com/UHM_Makassar">Twitter</a></li>
+                <li><a href="https://www.instagram.com/universitas_handayanimks/">Instagram</a></li>
+            </ul>
+        </div>
+    </footer>
+    <div class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img src="" alt="Lightbox Image">
+    </div>
+</body>
+</html>
